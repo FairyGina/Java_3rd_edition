@@ -67,7 +67,15 @@ int age; // 변수 타입 + 변수이름
 %d      decimal 정수 형식
 %or     octal 정수 형식
 %x(%X)  hexa-decimal 정수 형식
-%f      floating-point(부동소수점) 형식
+%f      floating-point(부동소수점) 형식: 소수점 6자리까지만 출력(마지막 숫자 반올림)
 %e(%E)  exponent(지수) 형식
 %c      character(문자) 형식
 %s      string(문자열) 형식
+%g      값을 간략 표현
+
+2.4. 화면에서 입력받기 - Scanner
+1. import java.util.*; // Scanner 클래스를 사용하기 위한 문장
+2. Scanner scanner = new Scanner(System.in); // Scanner 클래스의 객체 생성
+3. String input = scanner.nextLine(); // 입력받은 내용을 input에 저장
+int num = Interger.parseInt(input); // 입력받은 내용을 int 타입의 값으로 변환(Interger.parseInt()메소드가 문자열을 int타입의 정수로 변환, float 타입은 Float.parseFloat())
+ * int num = scanner.nextInt(); // 정수를 입력받아 변수 num에 저장
