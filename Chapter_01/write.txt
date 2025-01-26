@@ -62,22 +62,22 @@
 JVM은 OS에 종속적, JVM은 OS와 하드웨어에 독립적 
 
 3.2. 자주 발생하는 에러와 해결방법
-1. cannot find symbol / cannot resolve symbol
-   저장된 변수나 메소드를 찾을 수 없다
-2. ';'
-   세미클론이 필요한 곳에 없는 것
-3. Exception in thread "main" java.lang.NoSuchMethodError: main
-   main 메소드 찾기 불가로 메인 선언에 오타확인
-4. Exception in thread "main" java.lang.NoClassDefFoundError: Hello
-   Hello란 클래스 명을 찾을 수 없는 것으로 클래스 확인
-5. illegal start of expression
-   문장의 앞부분이 문법에 맞지 않는 것으로 if/for 문이나 괄호 여닫이 등의 문법 오류
-6. class. Interface, or enum expected
-   키워드가 없다는 것으로 괄호 갯수가 틀릴 경우 발생
+    1. cannot find symbol / cannot resolve symbol
+       저장된 변수나 메소드를 찾을 수 없다
+    2. ';'
+       세미클론이 필요한 곳에 없는 것
+    3. Exception in thread "main" java.lang.NoSuchMethodError: main
+       main 메소드 찾기 불가로 메인 선언에 오타확인
+    4. Exception in thread "main" java.lang.NoClassDefFoundError: Hello
+       Hello란 클래스 명을 찾을 수 없는 것으로 클래스 확인
+    5. illegal start of expression
+       문장의 앞부분이 문법에 맞지 않는 것으로 if/for 문이나 괄호 여닫이 등의 문법 오류
+    6. class. Interface, or enum expected
+       키워드가 없다는 것으로 괄호 갯수가 틀릴 경우 발생
 
 3.3 자바프로그램 실행과정
 C:/jdk1.8/work>java Hello
-1. 프로그램의 실행에 필요한 클래스 로드
-2. 클래스 파일 검사
-3. 지정된 클래스에서 main 호출
+    1. 프로그램의 실행에 필요한 클래스 로드
+    2. 클래스 파일 검사
+    3. 지정된 클래스에서 main 호출
 main의 첫줄부터 코드 실행, 마지막 코드까지 모두 실행 시프로그램 종료, 사용한 자원들은 모두 반환
