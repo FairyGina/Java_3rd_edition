@@ -4,7 +4,13 @@
     // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
     "version": "0.2.0",
     "configurations": [
-        
+        {
+            "type": "java",
+            "name": "OperatorEx8",
+            "request": "launch",
+            "mainClass": "OperatorEx8",
+            "projectName": "Java_3rd_edition_f13b7201"
+        },
         {
             "type": "java",
             "name": "Current File",
