@@ -96,4 +96,4 @@ MultiArrEx1.java: 좌표에 x표하기 - 입력한 2차원 좌표의 위치에 x
 MultiArrEx2.java: 빙고 - 빙고판을 만들고 입력받은 숫자를 빙고판에서 지운다.
 MultiArrEx3.java: 행렬의 곱셈 - 두 행렬(matrix)을 곱한 결과를 출력
 MultiArrEx4.java: 단어 맞추기 - 영어 단어를 보여주고, 뜻을 맞추는 게임
-println메서드는 char배열 한에에 모든 1차원 배열을 2차원으로 출력할 수 있음
+println메서드는 char배열 한에 모든 1차원 배열을 2차원으로 출력할 수 있음
