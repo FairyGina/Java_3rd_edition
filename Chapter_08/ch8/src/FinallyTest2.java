@@ -1,21 +1,21 @@
-class Finallytest2{
-    public static void main(String[] args) {
-        try{
-            startInstall();
-            copyFiles();
-        } catch(Exception e){
-            e.printStackTrace();
-        } finally{
-            deleteTempFiles();
-        }
-    }
+// class Finallytest2{
+//     public static void main(String[] args) {
+//         try{
+//             startInstall();
+//             copyFiles();
+//         } catch(Exception e){
+//             e.printStackTrace();
+//         } finally{
+//             deleteTempFiles();
+//         }
+//     }
 
-static void startInstall(){}
+// static void startInstall(){}
 
-static void copyFiles(){}
+// static void copyFiles(){}
 
-static void deleteTempFiles(){}
+// static void deleteTempFiles(){}
 
-}
+// }
 
 
