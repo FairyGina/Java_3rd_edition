@@ -135,4 +135,96 @@ Card c=Card.class.newInstance(); //Class객체를 이용해 객체 생성
 - 자바 소스파일에 포함된 모든 문자열 리터럴은 컴파일 시 클래스 파일에 저장
 - 같은 내용의 문자열 리터럴은 한번만 저장
 - 문자열 리터럴도 String인스턴스고, 한 번 생성하면 내용 변경이 불가하므로 하나의 인스턴스를 공유하면 되기 때문
-- 
+- 클래스 파일에는 소스 파일에 포함된 모든 리터럴의 목록이 있으며 해당 클래스 파일이 클래스 로더에 의해 메모리에 올라갈 때, 이 리터럴의 목록에 있는 리터럴들이 JVM내에 있는 상수 저장소(constant pool)에 저장되며 문자열 리터럴이 자동적으로 생섣되어 저장되는 것
+
+#### 빈 문자열(empty string)
+
+- 길이가 0 배열이 존재할 수 있으며 char형 배열도 길이가 0인 배열을 생성할 수 있고, 이 배열을 내부적으로 가지고 있는 문자열이 빈 문자열
+- String s="";같은 문장은 내부에 new char[0]과 같이 길이가 0인 char형 배열을 저장하고 있는 것
+- char형 변수는 반드시 하나의 문자를 지정해야함
+*C언어에서는 문자열의 끝에 널 문자가 항상 붙었지만 자바에서는 널 문자를 사용하지 않으며, 대신 문자열의 길이 정보를 따로 저장*
+
+#### String클래스의 생성자와 메서드
+
+|메서드|설명|
+|---|---|
+|String(String a)|주어진 문자열(s)을 갖는 String인스턴스를 생성|
+|String(char[] value)|주어진 문자열(value)을 갖는 String인스턴스를 생성|
+|String(StringBuffer buf)|StringBuffer인스턴스가 갖고 있는 문자열과 같은 내용의 String인스턴스 생성|
+|char charAt(int index)|지정된 위치(index)에 있는 문자를 알려주며 index는 0부터 시작|
+|int compareTo(String str)|문자열(str)과 사전순서로 비교하며 같으면 0, 사전순 이전이면 음수, 이후면 양수 반환|
+|String concat(String str)|문자열(str)을 덧붙임|
+|boolean contains(CharSequence s)|지정된 문자열(s)가 포함되었느닞 검사|
+|boolean endsWith(String suffix)|지정된 문자열(suffix)로 끝나는지 검사|
+|boolean equals(Object obj)|매개변수로 받은 문자열(obj)과 String인스턴스의 문자열을 비교하며, obj가 String이 아니거나 문자열이 다르면 false반환|
+|boolean equalsIgnoreCase(String str)|문자열과 String인스턴스의 문자열을 대소문자 구분없이 비교|
+|int indexOf(int ch)|주어진 문자(ch)가 문자열에 존재하는지 확인하여 위치(index)를 알려줌, 못 찾으면 -1을 반환(index는 0부터 시작)|
+|int indexOf(int ch, int pos)|주어진 문자(ch)가 문자열에 존재하는지 지정된 위치(pos)부터 확인해 위치(index)를 알려주며, 못 찾으면 -1 반환(index는 0부터 시작)|
+|String intern()|문자열을 상수풀(constant pool)에 등록하며, 이미 상수풀에 같은 내용의 문자열이 있을 경우 그 문자열의 주소값 반환|
+|int lastIndexOf(int ch)|지정된 문자 또는 문자코드를 문자열의 오른쪽 끝에서부터 찾아서 위치(index)를 알려주며, 못찾으면 -1 반환|
+|int lastIndexOf(String str)|지정된 문자열을 인스턴스 문자열 끝에서부터 찾아 위치(index)를 알려주묘, 못찾으면 -1 반환|
+|int length()|문자열 길이 반환|
+|String replace(char old, char nw)|문자열 중 문자(old)를 새로운 문자(nw)로 바꾼 문자열 반환|
+|String replaceAll(String reges, String replacement())|문자열 중 지정된 문자열(regex)과 일치하는 것을 새로운 문자열(replacement)로 모두 변경|
+|String replaceFirst(String regex, String replacement)|문자열 중 지정된 문자열(regex)과 일치하는 것 중, 첫 번재 것만 새로운 문자열(replacement)로 변경|
+|String[] split(String regex)|문자열을 지정된 분리자(regex)로 나눠 문자열 배열에 담아 반환|
+|String[] split(String regex, int limit)|문자열을 지정된 분리자(regex)로 나눠 문자열 배열에 담아 반환하며 문자열 전체를 지정된 수(limit)로 자름|
+|boolean startsWith(String prefix)|주어진 문자열(prefix)로 시작하는지 검사|
+|String substring(int begin) / String substring(int begin, int end)|주어진 시작위치(begin)부터 끝 위치(end)범위에 포함된 문자열을 얻으며 시작 위치의 문자는 범위에 포함되지만, 끝 위치의 문자는 포함되지 않음(begin<=x<end)|
+|String toLowerCase()|String인스턴스에 저장되어있는 모든 문자열을 솜누자로 변환해 반환|
+|String toString()|String인스턴스에 저장되어있는 문자열 반환|
+|String toUpperCase()|String인스턴스에 저장되어있는 모든 문자열을 대문자로 변환해 반환|
+|String trim()|문자열의 왼쪽 끝과 오른쪽 끝에 있는 공백을 없앤 결과를 반환, 이 때 문자열 중간에 있는 공백은 제거 X|
+|static String valueOf(boolean b)|지정된 값을 문자열로 변환해 반환하며 참조변수의 경우 toString()을 호출한 결과 반환|
+|static String valueOf(char c)||
+|static String valueOf(int i)||
+|static String valueOf(long l)||
+|static String valueOf(folat f)||
+|static String valueOf(double b)||
+|static String valueOf(Object o)||
+
+*CharSequence는 JDK1.4부터 추가된 인터페이스로 String, StringBuffer 등 클래스 구현*
+*contains(CharSequence s),replace(CharSequence old, CharSequence nw)는 JDK1.5부터 추가*
+*java.util.Date dd=new java.util.Date();애서 생성된 Date인스턴스는 현재 시간을 가짐*
+
+#### join()과 ㅏSTringJoiner
+
+- join()은 여러 문자열 사이 구분자를 넣어 결합
+- 구분자로 문자열을 자르는 split()과 반대 작업
+
+#### 유니코드의 보충문자
+
+- 문자를 다루는 메서드의 매개변수 타입이 char이 아닌 int인 이유: 확장된 유니코드를 다르기 위함
+- 유니코드는 원래 2 byte로 16비트 문자체계나 모자라서 20비트로 확장함에 따라 하나의 문자를 char타입으로 다루지 못하고, int타입으로 다루게 됨
+- 보충 문자(supplementary characters): 확장에 의해 새로 추가된 문자들
+- String클래스의 메서드 중 보충 문자를 지원하는 것이 있고 지원하지 않는 것이 있음
+- 구별하는 방법: 매개변수가 int ch 같은 것들은 보충 문자를 지원하는 것이고, char ch것은 지원하지 않는 것
+- 보충문자를 사용할 일은 거의 없음
+*확장된 유니코드(20bit)가 적용된 것은 JDK1.5부터*
+
+#### 문자 인코딩 변환
+
+- getBytes(String charsetName)를 사용하면, 문자열의 문자 인코딩을 타 인코딩으로 변경 가능
+- 자바는 UTF-16을 사용하나 문자열 리터럴에 포함되는 문자들은 OS의 인코딩을 사용
+- 한글 윈도우즈 경우 문자 인코딩으로 CP949를 사용하며, UTF-8로 변경도 가능
+- 서로 다른 문자 인코딩을 사용하는 컴퓨터 간 데이터를 주고받을 때는 적절한 문자 인코딩 필요
+- UTF-8은 한글 한 글자로 3byte 로 표현하고, CP949(==MS)는 2 byte로 표현
+
+#### String.format()
+
+- format()은 형식화된 문자열을 만들어내는 방법
+
+#### 기본형 값을 String으로 변환
+
+- 숫자로 이루어진 문자열을 숫자로, 그 반대로 변환하는 경우가 흔한데 기본형을 문자열로 변경하는 방법
+- 숫자+""는 문자열로 변경, valueOf() 사용도 가능하며, 더 성능이 좋지만 빈 문자열을 더하는 방법도 간단하고 편함
+*참조변수에 String을 더하면, 참조변수가 가리키는 인스터스의 toString()을 호출해 STring을 얻은 다음 결합*
+
+#### String을 기본형 값으로 변환
+
+- valueOf(), parseInt() 사용
+- valueOf() 반환타입은 int가 아니라 Integer인데, 오토박싱(auto-boxing)에 의해 Integer가 int로 자동 변환
+- 예전에는 parseInt()같은 메서들르 많이 사용했으나, 현재는 메서드 이름을 통일하기 위해 valueOf()추가. 이는 메서드 내부애서 parseInt(String s)를 호출해 반환타입만 다를 뿐 같은 메서드
+- 메서드 내 문자열에 공백 또는 문자가 포함되는 경우 변환 시 예외(NumberFormatException)가 발생할 수 있으므로 주의
+=> 문자열 양끝의 공백을 제거해주는 trim()을 습관적으로 같이 사용
+- 문자열을 숫자로 변환하는 과정에서 예외가 발생하기 쉽기에 주의를 해야하며, 예외 발생시 처리를 적절히 해야함
