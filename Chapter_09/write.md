@@ -228,3 +228,79 @@ Card c=Card.class.newInstance(); //Class객체를 이용해 객체 생성
 - 메서드 내 문자열에 공백 또는 문자가 포함되는 경우 변환 시 예외(NumberFormatException)가 발생할 수 있으므로 주의
 => 문자열 양끝의 공백을 제거해주는 trim()을 습관적으로 같이 사용
 - 문자열을 숫자로 변환하는 과정에서 예외가 발생하기 쉽기에 주의를 해야하며, 예외 발생시 처리를 적절히 해야함
+
+### 1.3. StringBuffer클래스와 StringBuilder클래스
+
+- String클래스는 인스턴스를 생성할 때 지정된 문자열을 변경할 수 없지만 StringBuffer클래스는 변경 가능
+- 내부적으로 문자열 편집을 위한 버퍼(Buffer)를 가지고 있으며, StringBuffer인스턴스를 생성할 때 그 크기 지정 가능
+- 편집할 문자열의 길이를 고려해 버퍼의 길이를 충분히 잡아주기 => 편집 중인 문자열이 버퍼의 길이를 넘으면 버퍼의 길이를 늘려주는 작업이 추가 수행할 필요가 있어 작업 효율이 떨어짐
+- StringBuffer클래스는 String 클래스와 같이 문자열을 저장하기 위한 char형 배열의 참조 변수를 인스턴스변수로 선언해 놓음
+- StringBuffer인스턴스가 생성될 때, char형 배열이 생성되며 이 때 생성된 char형 배열을 인스턴스 변수 value가 참조
+
+#### StringBuffer의 생성자
+
+- 인스턴스 생성 시, 적절한 길이의 char형 배열이 생성되고, 이 배열은 문자열을 저장하고 편집하기 위한 공간(buffer)으로 사용
+- StringBuffer인스턴스 생성 시 생성자 StringBuffer(int length)를 사용해 StringBuffer인스턴스에 저장될 문자열의 길이를 고려해 충분히 여유있는 크기로 지정 권함
+- StringBuffer인스턴스 생성 시, 버퍼크기를 지정하지 않으면 16개의 문자를 저장할 크기의 버퍼 생성
+- StringBuffer인스턴스로 문자열을 다루는 작업 시, 버퍼의 크기가 작업하려는 문자열의 길이보다 작을 때는 내부적으로 버퍼의 크기를 증가시키는 작업 수행
+- 배열의 길이는 변경될 수 없어 새로운 길이의 배열을 생성한 후 이전 배열 값을 복사해야함
+=> StringBuffer클래스의 인스턴스 변수 value는 길이가 증가된 새로운 배열 참조
+
+#### StringBuffer의 변경
+
+- String과 달리 StringBuffer는 내용 변경 가능
+- 하나의 StringBuffer인스턴스에 대해 연속적으로 append()출력 가능 => 반환 타입이 void라면 불가능
+*StringBuffer클래스에는 append()처럼 객체 자신을 반환하는 메서드가 많이 존재*
+
+#### StringBuffer의 비교
+
+- Stirng클래스에서는 equals메서드를 오버라이딩해 문자열의 내용을 비교하도록 구현됐지만, StringBuffer클래스는 equals메서드를 오버라이딩하지 않아 StringBuffer클래스의 equals메서드를 사용해도 등가비교 연산자(==)로 비교한 것과 같은 결과를 얻음
+- toString()은 오버라이딩되어 있어 StringBuffer인스턴스에 toString()을 호출하면, 담고있는 문자열을 String으로 반환
+- StringBuffer인스턴스에 담긴 문자열을 비교하기 위해 StringBuffer인스턴스에 toString()을 호출해서 String인스턴스를 얻은 후, equals메서드를 사용해 비교
+
+#### StringBuffer클래스의 생성자와 메서드
+
+- 문자열을 다루기 위해 String클래스와 유사한 메서드가 많으며 추가, 변경, 삭제같은 저장된 내용을 변경할 수 있는 메서드들이 추가 제공
+
+|메서드|설명|
+|---|---|
+|StringBuffer()|16문자를 담을 수 있는 버퍼를 가진 StringBuffer인스턴스 생성|
+|StringBuffer(int length)|지정된 개수의 문자를 담을 수 있는 버퍼를 가진 StringBuffer 인스턴스 생성|
+|StringBuffer(String str)|지정된 문자열 값(str)을 갖는 StringBuffer인스턴스 생성|
+|StringBuffer append(boolean b)|매개변수로 입력된 값을 문자열로 변환해 StringBuffer인스턴스가 저장하고 있는 문자열의 뒤에 덧붙임|
+|StringBuffer append(char c)||
+|StringBuffer append(char[] str)||
+|StringBuffer append(double d)||
+|StringBuffer append(float t)||
+|StringBuffer append(int i)||
+|StringBuffer append(long l)||
+|StringBuffer append(Object obj)||
+|StringBuffer append(String str)||
+|int capacity()|StringBuffer인스턴스의 버퍼크기를 알려주며, length()는 버퍼에 담긴 문자열의 길이를 알려줌|
+|char charAt(int index)|지정된 위치(index)에 있는 문자 반환|
+|StringBuffer delete(int start, int end)|시작위치(start)브타 끝 위치(end) 사이에 있는 문자를 제거하며, 끝 위치의 문자는 제외|
+|StringBuffer deleteCharAt(int index)|지정된 위치(index) 문자 제거|
+|StringBuffer insert(int pos, boolean b)|두 번째 매개변수로 받은 값을 문자열로 변환해 지정된 위치(pos)애 추가. pos는 0부터 시작|
+|StringBuffer insert(int pos, char c)||
+|StringBuffer insert(int pos, char[] str)||
+|StringBuffer insert(int pos, double d)||
+|StringBuffer insert(int pos, float f)||
+|StringBuffer insert(int pos, int i)||
+|StringBuffer insert(int pos, long l)||
+|StringBuffer insert(int pos, Object obj)||
+|StringBuffer insert(int pos, String str)||
+|int length()|StringBuffer인스턴스에 저장되어 있는 문자열의 길이 반환|
+|StringBuffer replace(int start, int end, String str)|지정된 범위(start~end)의 문자들을 주어진 문자열로 바꾸며, end위치의 문자는 범위에 포함되지 않음(start<=x<end)|
+|StringBuffer reverse()|StringBuffer인스턴스에 저장되어 있는 문자열의 순서를 거꾸로 나열|
+|void setCharAt(int index, char ch)|지정된 위치의 문자를 주어진 문자(ch)로 바꿈|
+|void setLength(int newLength)|지정된 길이로 문자열의 길이를 변경하며, 길이를 늘리는 경우 나머지 빈공간을 널 문자 '\u0000'로 채움|
+|String toString()|StringBuffer인스턴스의 문자열을 String으로 반환|
+|String substring(int start)|지정된 범위 내 문자열을 String으로 뽑아서 반환, 시작 위치(start)만 지정하면 시작위치부터 문자열 끝까지 뽑아 반환|
+|String substring(int start, int end)||
+
+#### StringBuilder란?
+
+- StringBuffer는 멀티쓰레드에 안전(thread safe)하도록 동기화되어있음
+- 멀티쓰레드로 작성된 프로그램이 아닌 경우, StringBuffer의 동기화는 불필요하게 성능을 떨어뜨림
+- StringBuilder: StringBuffer에서 쓰레드의 동기화만 뺀 완전히 똑같은 기능으로 작성
+- 다만 StringBuffer도 충분히 성능이 좋음
