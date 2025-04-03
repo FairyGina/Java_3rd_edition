@@ -304,3 +304,114 @@ Card c=Card.class.newInstance(); //Class객체를 이용해 객체 생성
 - 멀티쓰레드로 작성된 프로그램이 아닌 경우, StringBuffer의 동기화는 불필요하게 성능을 떨어뜨림
 - StringBuilder: StringBuffer에서 쓰레드의 동기화만 뺀 완전히 똑같은 기능으로 작성
 - 다만 StringBuffer도 충분히 성능이 좋음
+
+#### Math클래스
+
+- 수학계산에 유용한 메서드로 구성
+- Math클래스의 생성자는 접근 제어자가 private로 다른 클래스에서 Math인스턴스를 생성할 수 없게 함
+=> 클래스 내 인스턴스 변수가 하나도 없어서 인스턴스를 생성할 필요가 없어 Math클래스 메서드는 모두 static으로 2개의 상수만 정의함(자연 로그 밑, 원주율)
+
+#### 올림, 버림, 반올림
+
+- round(): 소수점 n번째 자리에서 반올림한 값을 얻는 코드로 항상 소수점 첫째자리에서 반올림을 해서 정수값(long)을 결과로 돌려줌
+- 정수형간 연산은 반올림이 이루어지지 않음
+- rint(): round()처럼 소수점 첫째자리에서 반올림하지만 반환값이 double이고, 두 정수 정 가운데에 있는 값은 가장 가까운 짝수 정수를 반환
+
+#### 예외를 발생시키는 메서드
+
+- 메서드 이름에 Exact가 포함된 메서드가 정수형 간의 연산에서 발생할 수 있는 오버플로우를 감지
+- 연산자는 단지 결과를 반환할 뿐, 오버플로우 발생 여부에 대해 알려주지 않는데, 이 메서드는 오버플로우 발생시 예외를 발생
+
+#### 삼각함수와 지수, 로그
+
+- float타입 정밀도: 7자리 / double타입 정밀도: 15자리
+
+#### StrictMath클래스
+
+- Math클래스는 최대한의 성능을 얻기 위해 JVM이 설치된 OK의 메서드를 호출해 사용해서 OS 의존 계산을 수행. OS마다 수행 결과 능력이 다르면 자바로 작성한 프로그램이여도 다른 결과가 나오기에, 성능을 포기해도 항상 같은 결과를 얻도록 만들어진 Math클래스
+
+#### Math클래스의 메서드
+
+|메서드|설명|
+|---|---|
+|static double abs(double a)|주어진 절대값을 반환|
+|static double abs(float f)||
+|static double abs(int f)||
+|static double abs(long f)||
+|static double ceil(double a)|주어진 값을 올림하여 반환|
+|static double floor(double a)|주어진 값을 버림하여 반환|
+|static double max(double a, double b)|주어진 두 값을 비교하여 큰 쪽을 반환|
+|static float max(float a, float b)||
+|static int max(int a, int b)||
+|static long max(long a, long b)||
+|static double min(double a, double b)|주어진 두 값을 비교하여 작은 쪽을 반환|
+|static float min(float a, float b)||
+|static int min(int a, int b)||
+|static long min(long a, long b)||
+|static double random()|0.0~1.0범위의 임의의 double값을 반환(1.0은 범위에 포함되지 않음)|
+|static double rint(double a)|주어진 double값과 가장 가까운 정수값을 double형으로 반환. 두 정수가 정가운데에 있는 값(1.5,2.5,3.5 등)은 짝수 반환|
+|static long round(double a)|소수점 첫째자리에서 반올림한 정수값(long)을 반환. 매개변수의 값이 음수인 경우, round()와 rint()의 결과가 다름|
+|static long round(float a)||
+
+#### 래퍼(wrapper)클래스
+
+- 자바는 8개의 기본형은 객체로 안 다루는 대신 더 높은 성능을 얻음
+- 기본형(primitive type)변수도 어쩔 수 없이 객체로 다뤄야 할 경우가 있는데, 매개변수로 객체를 요구할 때 기본형 값이 아닌 객체로 저장할 때 객체 간 비교가 필요할 때 경우 기본형 값들을 객체로 변환해 작업 수행 필요
+- 8개의 기본형을 대표하는 8개의 래퍼 클래스를 사용하면 기본형을 객체로 다룰 수 있음
+- 래퍼 클래스의 생성자는 매개변수로 문자열이나 각 자료형의 값들을 인자로 받음
+*주의점: 생성자의 매개변수로 문자열을 제공 시, 각 자료형에 알맞는 문자열 사용 필요*
+
+|기본형|래퍼 클래스|
+|---|---|
+|boolean|Boolean|
+|char|Character|
+|byte|Byte|
+|short|Short|
+|int|Integer|
+|long|Long|
+|float|Float|
+|double|Double|
+
+- 래퍼 클래스들은 모두 equals()가 오버라이딩되어 있어 주소값이 아닌 객체가 가지고 있는 값을 비교
+=> 실행결과를 equals()를 이용한 두 Integer객체의 비교 결과가 true로 확인
+- 오토박싱이 돼도 Integer객체에 비교연산자를 사용할 수 없어 compareTo()를 제공
+- toString()도 오버라이딩되어 있어 객체가 가지고 있는 값을 문자열로 변환해 반환
+- MAX_VALUE, MIN_VALUE, SIZE, BYTES, TYPE 등 static상수를 공통적으로 지님
+
+#### Number클래스
+
+- 추상클래스로 내부적으로 숫자를 멤버변수로 갖는 래퍼 클래스들의 조상
+- 기본형 중 숫자와 관련된 래퍼 클래스들은 모두 Number클래스의 자손
+- BigInteger: long으로 다룰 수 없는 큰 범위 정수
+- BigDecimal: double로 다룰수 없는 큰 범위의 부동 소수점수를 처리하기 위한 것으로 연산자의 역할을 대신하는 다양한 메서드 제공
+- 실제 소스는 객체가 가지고 있는 값을 숫자와 관련된 기본형으로 변환해 반환하는 메소드들을 정의
+
+#### 문자열을 숫자로 변환하기
+
+- int i=new Integer("100").intValue(); // floatValue(), longValue(), ...
+- int i2=Integer.paeseInt("100");
+- Integer i3=Integer.valueOf("100");
+
+- 래퍼 클래스의 타입.parse타입(String s) 형식의 메서드와 타입.valueOf()메서드가 존재하는데, 둘 다 문자를 숫자로 바꿔주는 일을 하지만, 전자는 반환값이 기본형(primitive type)이고, 후자는 반환값이 래퍼클래스 타입이라는 차이가 존재
+
+|문자열->기본형|문자열->래퍼 클래스|
+|---|---|
+|byte b=Byte.parseByte("100")|byte b=Byte.valueOf("100")|
+|short b=Short.parseShort("100")|short b=Short.valueOf("100")|
+|int b=Integer.parseInt("100")|Integer b=Integer.valueOf("100")|
+|long b=Long.parseLong("100")|Long b=Long.valueOf("100")|
+|float b=Float.parseFloat("100")|Float b=Float.valueOf("100")|
+|double b=Float.parseDouble("100")|Double b=Double.valueOf("100")|
+
+- 오토박싱(autoboxing)기능으로 반환값이 기본형일 때와 래퍼 클래스일때 차이는 없어져서 구별없이 valueOf()를 사용해도 되자만, 성능은 조금 더 느림
+- 문자열이 10진수가 아닌 다른 진법(radix)의 숫자일 때도 변환이 가능하도록 메서드가 제공
+- 진법 생략 시 10진수로 간주하기에 이 이상의 진법을 사용하면 NumberFormatException 발생
+
+#### 오토박싱 & 언박싱(autoboxing & unboxing)
+
+- 기본형과 참조형 간 연산은 컴파일러가 자동으로 변환하는 코드로 계산이 가능하게 됨. 객체를 기본형으로 바꿔주는 Value()코드 추가
+- 내부적으로 객체 배열을 가지는 Vector클래스나 ArrayList클래스에 기본형 값을 저장해야할 때나 형변환이 필요할 때도 컴파일러가 자동적으로 코드를 추가
+- 오토박싱(autoboxing): 기본형 값을 래퍼 클래스의 객체로 자동 변환해주는 것
+- 언박싱(unboxing): 래퍼 클래스의 객체를 기본형 값으로 자동 변환해주는 것
+- 기본형과 참조형 간 형변환이 가능하며 참조형 간 연산도 가능함
+- 
