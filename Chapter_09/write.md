@@ -414,4 +414,37 @@ Card c=Card.class.newInstance(); //Class객체를 이용해 객체 생성
 - 오토박싱(autoboxing): 기본형 값을 래퍼 클래스의 객체로 자동 변환해주는 것
 - 언박싱(unboxing): 래퍼 클래스의 객체를 기본형 값으로 자동 변환해주는 것
 - 기본형과 참조형 간 형변환이 가능하며 참조형 간 연산도 가능함
-- 
+- 생성자가 없는 클래스에 컴파일러가 기본 생성자를 자동적으로 추가해주듯 개발자가 간략하게 쓴 구문을 컴파일러가 원래의 구문으로 변경해주는 것
+
+## 2. 유용한 클래스
+
+### 2.1. java.util.Objects클래스
+
+- Object클래스의 보조 클래스로 Math클래스처럼 모든 메서드가 static
+- 객체 비교나 널 체크(null check)에 유용
+- isNull(): 해당 객체가 널인지 확인해 null일시 true, 아니면 false 반환
+- nonNull(): == !Objects. isNull(obj)
+- requireNonNull(): 해당 객체가 널이 아니어야한 경우에 사용하며, 객체가 널이면 NullPointerException을 발생. 두 번째 매개변수로 지정하는 문자열은 예외 메시지가 됨
+- Object 클래스에는 두 객체의 등가 비교를 위한 equals()만 있고, 대소비교를 위한 comparse()가 없었는데 Objects에는 compare()가 추가.
+- compare(): 두 비교대상이 같으면 0, 크면 양수, 작으면 음수 반환
+- Comparator: a,b 두 객체를 비교하는데, 사용할 비교 기준 역할
+- Object 클래스에 정의된 equals()가 필요한 이유: null 검사 불필요
+- equals() 내부에서 a,b의 널 검사를 하기 때문에 따로 널 검사를 위한 조건식은 넣지 않아도 됨. 두 변수가 모두 널인 경우 참을 반환.
+- deepEquals(): 객체를 재귀적으로 비교해 다차원 배열 비교가 가능
+- 2차원 문자열 배열을 비교하기 위헤서는 equals()+반복문 / deepEquals() 사용
+- toString()도 equals()처럼 내부적으로 널 검사를 한다는 것 외에 같음. 두 번째 메서드는 o가 널일 경우, 대신 사용할 값을 지정할 수 있어 유용
+- hashCode(): 내부적으로 널 검사 후 Object클래스의 hashCode() 호출. 단, 널일 때는 0 반환
+- 보통 클래스에 선언된 인스턴스 변수들의 hashCode()를 조합해 반환하도록 hashCode()를 오버라이딩하는데, 대신 매개변수 타입이 가변인자인 두 번째 메서드를 사용하면 편리
+- Object클래스의 메서드와 이름이 같은 것들은 충돌()컴파일러가 구분을 못함 => 클래스의 이름을 붙여 해결
+
+### 2.2. java.util.Random클래스
+
+- double randomNum = Math.random();
+- double randNum = new Random().nextDouble();
+- Math.random()과 Random의 가장 큰 차이점: 종자값(seed) 설정 가능. 종자값이 같은 Random인스턴스들은 항상 같은 난수를 같은 순서대로 반환
+- 종자값은 난수를 만드는 공식에 사용되는 값으로 같은 공식에 같은 값을 넣을 시 같은 결과를 얻는 것 처럼 같은 종자값을 넣으면 같은 난수를 얻음
+
+#### Random클래스의 생성자와 메서드
+
+- 생성자 Random()은 System.currentTimeMillis()로 해 실행할 때마다 얻는 난수가 달라짐
+System.currentTimeMillis()는 현재 시간을 천분의 1초 단위로 변환해 반환
