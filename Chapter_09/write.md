@@ -447,4 +447,9 @@ Card c=Card.class.newInstance(); //Class객체를 이용해 객체 생성
 #### Random클래스의 생성자와 메서드
 
 - 생성자 Random()은 System.currentTimeMillis()로 해 실행할 때마다 얻는 난수가 달라짐
-System.currentTimeMillis()는 현재 시간을 천분의 1초 단위로 변환해 반환
+*System.currentTimeMillis()는 현재 시간을 천분의 1초 단위로 변환해 반환*
+- 같은 종자값을 갖는 Random인스턴스는 시스템이나 실행 시간 등에 관계 없이 항상 같은 값을 같은 순서로 반환할 것을 보장
+
+### 2.3. 정규식(Regular Expression) - java.util.regex 패키지
+
+- 정규식: 텍스트 데이터 중에서 원하는 
