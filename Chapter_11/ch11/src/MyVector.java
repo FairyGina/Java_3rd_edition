@@ -24,12 +24,14 @@ public class MyVector implements List{
         }
     }
 
+    @Override
     public boolean add(Object obj) {
         ensureCapacity(size + 1);
         data[size++] = obj;
         return true;
     }
 
+    @Override
     public Object get(int index) {
         if(index < 0 || index >= size) {
             throw new ArrayIndexOutOfBoundsException("범위를 벗어났습니다.");
@@ -37,6 +39,7 @@ public class MyVector implements List{
         return data[index];
     }  
 
+    @Override
     public Object remove(int index) {
         Object oldObj = null;
 
@@ -54,6 +57,7 @@ public class MyVector implements List{
         return oldObj;
     }
 
+    @Override
     public boolean remove(Object obj) {
         for(int i = 0; i < size; i++) {
             if(data[i].equals(obj)) {
@@ -79,6 +83,7 @@ public class MyVector implements List{
         this.capacity = capacity;
     }
 
+    @Override
     public void clear() {
         for(int i = 0; i < size; i++) {
             data[i] = null;
@@ -86,6 +91,7 @@ public class MyVector implements List{
         size = 0;
     }
 
+    @Override
     public Object[] toArray() {
         Object[] result = new Object[size];
         System.arraycopy(data, 0, result, 0, size);
@@ -93,6 +99,7 @@ public class MyVector implements List{
         return result;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
@@ -101,8 +108,62 @@ public class MyVector implements List{
         return capacity;
     }
 
+    
+    @Override
     public int size() {
         return size;
     }
+
+    /*********************************************************************/
+    /*            List인터페이스로부터 상속받은 메서드들                   */
+    /*********************************************************************/
+    //public int size();
+    //public boolean isEmpty();
+    @Override
+    public boolean contains(Object o){return false;}
+    @Override
+    public Iterator iterator(){return null;}
+
+    //public Object[] toArray();
+    @Override
+    public Object[] toArray(Object a[]){return null;}
+    //public boolean add(Object o);
+    //public boolean remove(Object o);
+    @Override
+    public boolean containsAll(Collection c){return false;}
+    @Override
+    public boolean addAll(Collection c){return false;}
+    @Override
+    public boolean addAll(int index, Collection c){return false;}
+    @Override
+    public boolean removeAll(Collection c){return false;}
+    @Override
+    public boolean retainAll(Collection c){return false;}
+    //public void clear();
+    @Override
+    public boolean equals(Object o){return false;}
+    //public int hashCode();
+    //public Object get(int index);
+    @Override
+    public Object set(int index, Object element){return null;}
+    @Override
+    public void add(int index, Object element){}
+    //public Object remove(int index);
+    @Override
+    public int indexOf(Object o){return -1;}
+    @Override
+    public int lastIndexOf(Object o){return -1;}
+    @Override
+    public ListIterator listIterator(){return null;}
+    @Override
+    public ListIterator listIterator(int index){return null;}
+    @Override
+    public List subList(int fromIndex, int toIndex){return null;}
+
+    // default void sort(Comparator c){/* */}
+    // default Spliterator spliterator(){/* */}
+    // default void replaceAll(UnaryOperator operator){/* */}
     
 }
+
+
