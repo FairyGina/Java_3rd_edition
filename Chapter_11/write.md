@@ -200,4 +200,58 @@
 ### 1.7. Comparator와 Comparable
 
 - Arrays.sort() 호출 시 Character클래스의 Comparable의 구현에 의해 정렬
-- Comparator / Comparable은 모두 인터페이스로 컬렉션을 정렬하는데 필요한 메서드를 정의하며, Comparable를 구현하고 있는 
+- Comparator / Comparable은 모두 인터페이스로 컬렉션을 정렬하는데 필요한 메서드를 정의하며, Comparable를 구현하고 있는 클래스들은 같은 타입의 인스턴스끼리 서로 비교할 수 있는 클래스들, 주로 Integer와 같은 wrapper클래스와 String, Date, File과 같은 것으로 기본적으로 오름차순, 즉 작은 값에서부터 큰 값의 순으로 정렬되도록 구현 => Comparable을 구현한 클래스는 정렬 가능
+- compareTo()의 반환값은 int지만 실제 비교하는 두 객체가 같으면 0, 비교 값보다 작으면 음수, 크면 양수를 반환하도록 구현
+- compare()도 객체를 비교해서 음수, 0, 양수 중의 하나를 반환하도록 구현
+- Comparable을 구현한 클래스들이 기본적으로 오름차순으로 정렬되어 있지만, 내림차순으로 정렬한다던가 타 기준에 의해 정렬하고 싶을 때 Comparator를 구현해 정렬 기준을 제공
+
+- Comparable: 기본 정렬기준을 구현하는데 사용
+- Comparator: 기본 정렬기준 외에 다른 기준으로 정렬하고자할 때 사용
+
+- 전에 배운 것과 같이 Arrays.sort()는 배열을 정렬할 때, Comparator를 지정해주지 않으면 저장하는 객체(주로 Comparable를 구현한 클래스의 객체)에 구현된 내용에 따라 정렬
+- 문자열의 오름차순 정렬은 공백, 숫자, 대문자, 소문자의 순으로 정렬(유니코드의 순서가 작은 값부터 큰 값으로 정렬)
+- 내림차순(descending order): String의 기본 정렬을 반대로 하는 것
+- 내림차순 정렬 방법: compareTo() 결과에 -1을 곱하거나 비교하는 객체의 위치를 바꿔 c2.compareTo(c1.compareTo(c1))
+- compare()의 매개변수가 Object타입이기 때문에 compareTo()를 바로 호출할 수 없으므로 먼저 Comparable로 형변환해야한다는 것을 의미
+
+### 1.8. HashSet
+
+- HashSet: Set인터페이스를 구현한 가장 대표적인 컬렉션으로 Set인터페이스 특징대로 HashSet은 중복된 요소를 저장하지 않음
+- HashSet에 새로운 요소를 추가할 때는 add메서드나 addAll메서드를 사용하는데, 만일 HashSet에 이미 저장되어 있는 요소와 중복된 요소를 추가하고자 한다면 이 메서드들은 false를 반환함으로써 중복된 요소이기 때문에 추가에 실패했다는 것을 알림
+- HashSet의 특징을 이용하면, 컬렉션 내 중복 요소들을 쉽게 제거
+- ArrayList와 같이 List인터페이스를 구현한 컬렉션과 달리 HashSet은 저장순서를 유지하지 않으므로 저장순서를 유지하고자 한다면 LinkedHashSet을 사용
+*HashSet은 내부적으로 HashMap을 이용해 만들어지며, HashSet이란 이름은 해싱(hashing)을 이용해 구현했기 때문에 붙여짐*
+- 중복을 제거하는 동시에 저장한 순서를 유지하고자 한다면 HashSet 대신 LinkedHashSet을 사용
+- Collection은 인터페이스고 Collections는 클래스
+- HashSet은 저장된 순서를 보장하지 않고 자체적인 저장방식에 따라 순서가 결정되기 때문에 LinkedHashSet을 사용 권유
+- HashSet의 add메서드는 새로운 요소를 추가하기 전에 기존 저장된 요소와 같은 것인지 판별하기 위해 추가하려는 요소의 equals()와 hashCode()를 호출하기 때문에 equals()와 hashCode()를 목적에 맞게 오버라이딩해야함
+- String클래스에서 같은 내용의 문자열에 대한 equals()의 호출결과가 true인 것과 같이 오버라이딩을 해 구현
+- 두 객체에 대해 equals메서드를 호출한 결과가 true이면, 두 객체의 해시코드는 반드시 같아야하지만, 두 객체의 해시코드가 같다고 해서 equals메서드의 호출결과가 반드시 true여야 하는 것은 아님
+
+### 1.9. TreeSet
+
+- 이진 검색 트리(binary search tree)라는 자료구조 형태로 데이터를 저장하는 컬렉션 클래스
+- 이진 검색 트리는 정렬, 검색, 범위검색(range search)에 높은 성능을 보이는 자료구조이며 TreeSet은 이진 검색 트리의 성능을 향상시킨 레드-블랙 트리(Red-Black tree)로 구현
+- Set인터페이스를 구현했으므로 중복된 데이터의 저장을 허용하지 않으며 정렬된 위치에 저장하므로 저장순서를 유지하지도 않음
+- 이진 트리(binary tree)는 링크드리스트처럼 여러 개의 노드(node)가 서로 연결된 구조로, 각 노드에 최대 2개의 노드를 연결할 수 있으며 루트(root)라고 불리는 하나의 노드에서부터 시작해서 계속 확장해나갈 수 있음
+
+#### 이진 검색 트리(binary search tree)
+
+- 모든 노드는 최대 두 개의 자식노드를 가질 수 있음
+- 왼쪽 자식노드의 값은 부모노드의 값보다 작고 오른쪽 자식노드의 값은 부모 노드의 값보다 커야함
+- 노드의 추가 삭제에 시간이 걸림(순차적 저장이 아니기에)
+- 검색(범위검색)과 정렬에 유리
+- 중복된 값을 저장하지 못함
+
+### 1.10. HashMap과 Hashtable
+
+- Hashtable과 HashMap의 관계는 Vector와 ArrayList 관계와 같아 Hashtable보다 새 버전인 HashMap 사용 권장
+- HashMap은 Map을 구현했으므로 Map의 특징인 키(key)와 값(value)을 묶어 하나의 데이터(entry)로 저장한다는 특징을 지님
+- 해싱(hashing)을 사용해 많은 양의 데이터를 검색하는데 뛰어난 성능을 보임
+- HashMap은 Entry라는 내부 클래스를 정의하고, 다시 Entry타입의 배열을 선언
+- 키와 값은 별개의 값이 아니라 서로 관련된 값이기에 각각의 배열로 선언하기 보다 하나의 클래스로 정의해 하나의 배열로 다루는 것이 데이터의 무결성적인 측면에서 더 바람직
+- HashMap은 키와 값을 각각 Object 타입으로 저장(Object, Object)해 어떠한 객체도 저장할 수 있지만 키는 주로 String을 대문자 또는 소문자로 통일해 사용
+- 키(key): 컬렉션 내 키(key) 중에서 유일해야함
+- 값(value): 키(key)와 달리 데이터의 중복 허용
+- 키는 저장된 값을 찾는데 사용되는 것으로 컬렉션 내 유일해야 함 => HashMap에 저장된 데이터를 하나의 키로 검색 시 결과가 단 하나여야함
+- 
